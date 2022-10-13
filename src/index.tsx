@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import * as ReactDOM from "react-dom/client";
 import "./index.css";
 import {
@@ -10,7 +10,7 @@ import {
   Squares,
 } from "./type";
 
-function Square(props: ISquareProps) {
+const Square: FC<ISquareProps> = (props) => {
   let className = "square";
   if (props.isHighlighted) {
     className += " highlight";
@@ -21,7 +21,7 @@ function Square(props: ISquareProps) {
       {props.value}
     </button>
   );
-}
+};
 
 class Board extends React.Component<IBoardProps, IBoardState> {
   renderSquare(i: number, isHighlighted: boolean) {
