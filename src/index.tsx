@@ -6,11 +6,11 @@ import {
   IBoardState,
   IGameProps,
   IGameState,
-  ISquareProps,
+  SquareProps,
   Squares,
 } from "./type";
 
-const Square: FC<ISquareProps> = (props) => {
+const Square: FC<SquareProps> = (props) => {
   let className = "square";
   if (props.isHighlighted) {
     className += " highlight";

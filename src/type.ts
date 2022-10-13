@@ -1,11 +1,8 @@
-export interface ISquareProps {
+export type SquareProps = {
   value: Square;
   isHighlighted: boolean;
   onClick: () => void;
-}
-
-export interface ISquareState {
-}
+};
 
 export interface IBoardProps {
   squares: Array<Square>;
