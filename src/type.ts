@@ -4,11 +4,11 @@ export type SquareProps = {
   onClick: () => void;
 };
 
-export interface IBoardProps {
+export type BoardProps = {
   squares: Array<Square>;
   winLine: Array<number> | null;
   onClick: (i: number) => void;
-}
+};
 
 export interface IBoardState {
 }

@@ -2,8 +2,7 @@ import React, { FC } from "react";
 import * as ReactDOM from "react-dom/client";
 import "./index.css";
 import {
-  IBoardProps,
-  IBoardState,
+  BoardProps,
   IGameProps,
   IGameState,
   SquareProps,
@@ -23,46 +22,44 @@ const Square: FC<SquareProps> = (props) => {
   );
 };
 
-class Board extends React.Component<IBoardProps, IBoardState> {
-  renderSquare(i: number, isHighlighted: boolean) {
+const Board: FC<BoardProps> = (props) => {
+
+  const renderSquare = (i: number, isHighlighted: boolean) => {
     return (
       <Square
         isHighlighted={isHighlighted}
         key={i}
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
+        value={props.squares[i]}
+        onClick={() => props.onClick(i)}
       />
     );
-  }
+  };
 
-  render() {
-    return (
-      <div>
-        {Array(3)
-          .fill(0)
-          .map((row, i) => {
-            return (
-              <div className="board-row" key={i}>
-                {Array(3)
-                  .fill(0)
-                  .map((col, j) => {
-                    const index = i * 3 + j;
-                    const highlight =
-                      this.props.winLine &&
-                      this.props.winLine.indexOf(index) !== -1;
-                    if (highlight) {
-                      return this.renderSquare(index, highlight);
-                    } else {
-                      return this.renderSquare(index, false);
-                    }
-                  })}
-              </div>
-            );
-          })}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {Array(3)
+        .fill(0)
+        .map((row, i) => {
+          return (
+            <div className="board-row" key={i}>
+              {Array(3)
+                .fill(0)
+                .map((col, j) => {
+                  const index: number = i * 3 + j;
+                  const highlight =
+                    props.winLine && props.winLine.indexOf(index) !== -1;
+                  if (highlight) {
+                    return renderSquare(index, highlight);
+                  } else {
+                    return renderSquare(index, false);
+                  }
+                })}
+            </div>
+          );
+        })}
+    </div>
+  );
+};
 
 class Game extends React.Component<IGameProps, IGameState> {
   constructor(props: IGameProps) {
