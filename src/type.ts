@@ -10,20 +10,11 @@ export type BoardProps = {
   onClick: (i: number) => void;
 };
 
-export interface IBoardState {}
-
-export interface IGameProps {}
-
-export interface IGameState {
-  history: Array<{
-    squares: Squares;
-    col: number;
-    row: number;
-  }>;
-  stepNumber: number;
-  xIsNext: boolean;
-  isAsc: boolean;
-}
+export type HistoryState = Array<{
+  squares: Squares;
+  col: number;
+  row: number;
+}>
 
 type Square = "X" | "O" | null;
 
