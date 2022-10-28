@@ -1,51 +1,87 @@
-import renderer from "react-test-renderer";
+/* eslint-disable testing-library/no-render-in-setup */
+import { expect } from "@jest/globals";
 import { Square } from "../components/Square";
-import { expect, test } from "@jest/globals";
+import { render, RenderResult } from "@testing-library/react";
 
-test("add className highlight when isHighlighted is true", () => {
-  const tree = renderer
-    .create(<Square isHighlighted={true} value={null} onClick={() => {}} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+describe("Square component", () => {
+  let screen: RenderResult;
+
+  describe("when X is displayed", () => {
+    beforeEach(() => {
+      screen = render(
+        <Square isHighlighted={false} value={"X"} onClick={() => {}} />
+      );
+    });
+
+    it("render correctly", () => {
+      expect(screen).toMatchSnapshot();
+    });
+  });
+
+  describe("when O is displayed", () => {
+    beforeEach(() => {
+      screen = render(
+        <Square isHighlighted={false} value={"O"} onClick={() => {}} />
+      );
+    });
+
+    it("render correctly", () => {
+      expect(screen).toMatchSnapshot();
+    });
+  });
+
+  describe("when nothing is displayed", () => {
+    beforeEach(() => {
+      screen = render(
+        <Square isHighlighted={false} value={null} onClick={() => {}} />
+      );
+    });
+
+    it("render correctly", () => {
+      expect(screen).toMatchSnapshot();
+    });
+  });
+
+  describe("when square is highlighted", ()=> {
+    beforeEach(() => {
+      screen = render(
+        <Square isHighlighted={true} value={"X"} onClick={() => {}} />
+      );
+    });
+
+    it("render correctly", () => {
+      expect(screen).toMatchSnapshot();
+    });
+  })
+
+  describe("when square is not highlighted", () => {
+    beforeEach(() => {
+      screen = render(
+        <Square isHighlighted={false} value={"X"} onClick={() => {}} />
+      );
+    });
+
+    it("render correctly", () => {
+      expect(screen).toMatchSnapshot();
+    });
+  })
+
+  describe("when square is clicked", ()=> {
+    const onClickSquare = jest.fn();
+    beforeEach(() => {
+      screen = render(
+        <Square isHighlighted={false} value={"X"} onClick={onClickSquare} />
+      );
+      screen.getByText("X").click();
+    });
+
+    it("render correctly", () => {
+      expect(screen).toMatchSnapshot();
+    });
+
+    it("onClick is called", () => {
+      expect(onClickSquare).toHaveBeenCalled();
+    });
+  })
+
 });
-
-test("not add className highlight when isHighlighted is false", () => {
-  const tree = renderer
-    .create(<Square isHighlighted={false} value={null} onClick={() => {}} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-test("show X when value is X", () => {
-  const tree = renderer
-    .create(<Square isHighlighted={false} value={"X"} onClick={() => {}} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-test("show O when the value is O", () => {
-  const tree = renderer
-    .create(<Square isHighlighted={false} value={"O"} onClick={() => {}} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-test("show nothing when the value is null", () => {
-  const tree = renderer
-    .create(<Square isHighlighted={false} value={null} onClick={() => {}} />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-// test("call onClick when the square is clicked", () => {
-//   const onClickSquare = jest.fn();
-//   const tree = renderer
-//     .create(
-//       <Square isHighlighted={false} value={null} onClick={onClickSquare} />
-//     )
-//     .toJSON();
-//   if ("tree" in renderer.ReactTestRenderer) {
-//     tree?.props.onClick();
-//   }
-//   expect(onClickSquare).toHaveBeenCalled();
-// });
