@@ -2,7 +2,6 @@
 import { Game } from "../components/Game";
 import { render } from "@testing-library/react";
 import * as useGame from "../hooks/useGame";
-import { Square } from "../components/Square";
 
 describe("Game component", () => {
   describe("when isAsc is true", () => {
@@ -10,24 +9,15 @@ describe("Game component", () => {
       jest.spyOn(useGame, "useGame").mockImplementation(() => ({
         status: "status",
         moves: [
-          <Square
-            key={"X"}
-            value={"X"}
-            isHighlighted={false}
-            onClick={jest.fn}
-          />,
-          <Square
-            key={""}
-            value={null}
-            isHighlighted={true}
-            onClick={jest.fn}
-          />,
-          <Square
-            key={"O"}
-            value={"O"}
-            isHighlighted={false}
-            onClick={jest.fn}
-          />,
+          <button onClick={jest.fn} className="bold" aria-label="Go">
+            Step 1
+          </button>,
+          <button onClick={jest.fn} className="" aria-label="Go">
+            Step 2
+          </button>,
+          <button onClick={jest.fn} className="bold" aria-label="Go">
+            Step 3
+          </button>,
         ],
         current: {
           squares: ["X", "O", null, "X", "O", null, "X", "O", null],
@@ -41,10 +31,10 @@ describe("Game component", () => {
       }));
       const screen = render(<Game />);
       expect(screen.getByText("Sort in descending order")).toBeInTheDocument();
-      const allSquares = screen.getAllByRole("button");
-      expect(allSquares[0]).toHaveTextContent("X");
-      expect(allSquares[1]).not.toHaveTextContent("X" || "O");
-      expect(allSquares[2]).toHaveTextContent("O");
+      const allGoButtons = screen.getAllByRole("button", { name: "Go" });
+      expect(allGoButtons[0]).toHaveTextContent("Step 1");
+      expect(allGoButtons[1]).toHaveTextContent("Step 2");
+      expect(allGoButtons[2]).toHaveTextContent("Step 3");
     });
   });
 
@@ -53,24 +43,15 @@ describe("Game component", () => {
       jest.spyOn(useGame, "useGame").mockImplementation(() => ({
         status: "status",
         moves: [
-          <Square
-            key={"X"}
-            value={"X"}
-            isHighlighted={false}
-            onClick={jest.fn}
-          />,
-          <Square
-            key={""}
-            value={null}
-            isHighlighted={true}
-            onClick={jest.fn}
-          />,
-          <Square
-            key={"O"}
-            value={"O"}
-            isHighlighted={false}
-            onClick={jest.fn}
-          />,
+          <button onClick={jest.fn} className="bold" aria-label="Go">
+            Step 1
+          </button>,
+          <button onClick={jest.fn} className="" aria-label="Go">
+            Step 2
+          </button>,
+          <button onClick={jest.fn} className="bold" aria-label="Go">
+            Step 3
+          </button>,
         ],
         current: {
           squares: ["X", "O", null, "X", "O", null, "X", "O", null],
@@ -84,10 +65,10 @@ describe("Game component", () => {
       }));
       const screen = render(<Game />);
       expect(screen.getByText("Sort in ascending order")).toBeInTheDocument();
-      const allSquares = screen.getAllByRole("button");
-      // expect(allSquares[0]).toHaveTextContent("O");
-      expect(allSquares[1]).not.toHaveTextContent("X" || "O");
-
+      const allGoButtons = screen.getAllByRole("button", { name: "Go" });
+      expect(allGoButtons[0]).toHaveTextContent("Step 3");
+      expect(allGoButtons[1]).toHaveTextContent("Step 2");
+      expect(allGoButtons[2]).toHaveTextContent("Step 1");
     });
   });
 });
