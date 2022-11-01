@@ -82,5 +82,7 @@ export const useGame = () => {
     settlement,
     toggleAsc,
     isAsc,
+    jumpTo,
+    stepNumber
   };
 };

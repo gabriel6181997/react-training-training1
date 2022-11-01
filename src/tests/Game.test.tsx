@@ -28,6 +28,8 @@ describe("Game component", () => {
         settlement: null,
         toggleAsc: jest.fn(),
         isAsc: true,
+        jumpTo: jest.fn(),
+        stepNumber: 1,
       }));
       const screen = render(<Game />);
       expect(screen.getByText("Sort in descending order")).toBeInTheDocument();
@@ -62,6 +64,8 @@ describe("Game component", () => {
         settlement: null,
         toggleAsc: jest.fn(),
         isAsc: false,
+        jumpTo: jest.fn(),
+        stepNumber: 1,
       }));
       const screen = render(<Game />);
       expect(screen.getByText("Sort in ascending order")).toBeInTheDocument();
